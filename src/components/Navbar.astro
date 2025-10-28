@@ -1,0 +1,83 @@
+---
+import {House, SunMoon} from '@lucide/astro';
+---
+
+<div
+  id='navbar'
+  class='fixed top-5 left-0 w-full transition-transform duration-400 z-10'>
+  <!-- top 값: 위로 숨김 효과 에서 -값 적용-->
+  <div
+    class='flex items-center justify-center gap-50 max-w-lg w-full px-4 h-full mx-auto font-semibold'>
+    <nav aria-label='Main Navigation' class='contents'>
+      <!-- 왼쪽: 홈 아이콘 -->
+      <ul
+        role='list'
+        class='flex items-center rounded-full shrink-0 ring-1 ring-black/10 bg-white overflow-hidden'>
+        <li class='w-full h-full'>
+          <a
+            href='/'
+            aria-label='Home'
+            class='flex items-center justify-center w-full h-full p-2 hover:bg-neutral-100 transition-colors duration-200'>
+            <House />
+            <span class='sr-only'>Home</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- 중간: 메뉴 -->
+      <ul
+        role='list'
+        class='flex items-center rounded-full shrink-0 ring-1 ring-black/10 bg-white overflow-hidden'>
+        <li>
+          <a
+            href='/blog'
+            class='flex items-center justify-center w-full h-full p-2 hover:bg-neutral-100 transition-colors duration-200'
+            >Blog</a
+          >
+        </li>
+        <li>
+          <a
+            href='/portfolio'
+            class='flex items-center shrink-0 justify-center w-full h-full p-2 hover:bg-neutral-100 transition-colors duration-200'
+            >Portfolio</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- 테마 전환 버튼 -->
+    <button
+      type='button'
+      aria-label='Change theme'
+      class='flex items-center justify-center rounded-full p-2 shrink-0 ring-1 ring-black/10 bg-white cursor-pointer hover:bg-neutral-100 transition-colors duration-200'>
+      <SunMoon />
+    </button>
+  </div>
+</div>
+
+<script>
+  let lastScroll = 0;
+  const navbar = document.getElementById('navbar');
+
+  window.addEventListener('scroll', () => {
+    if (!navbar) return;
+
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll <= 0) {
+      navbar.style.transform = 'translateY(0)';
+      return;
+    }
+
+    if (currentScroll > lastScroll) {
+      navbar.style.transform = 'translateY(calc(-100% - 1.5rem))'; // 위로 숨김
+    } else {
+      navbar.style.transform = 'translateY(0)'; // 아래로 표시
+    }
+
+    lastScroll = currentScroll;
+  });
+</script>
+
+<!-- 스크롤 테스트용 -->
+<div class='h-[200vh]'></div>
